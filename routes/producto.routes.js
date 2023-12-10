@@ -17,7 +17,7 @@ const {validarCrearProducto} = require('../helpers/validadores')
 
 router.get("/:matricula", async (req,res) =>{
     try{
-        const cocheEncontrado = await buscarPorMatricula(req.params.matricula)
+        const cocheEncontrado = await buscarPorMatricula(req.params)
         if(cocheEncontrado){
             res.json(cocheEncontrado)
         }else{
@@ -40,7 +40,7 @@ router.post("/",async(req,res)=>{
 })
 
 router.delete("/:matricula", async (req, res) => {
-    const cocheBorrado = await eliminarCoche(req.params.matricula)
+    const cocheBorrado = await eliminarCoche(req.params)
     
     if (cocheBorrado) {
         res.json({ msg: 'coche borrado!' })

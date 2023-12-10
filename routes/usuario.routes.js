@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router()   
 
-const {buscarTodos, busacarPorEmail, crearUsuario, eliminarUsuario } = require('../controllers/usuario.controller')
+const {buscarTodos, buscarPorEmail, crearUsuario, eliminarUsuario } = require('../controllers/usuario.controller')
 
 
 
@@ -18,8 +18,9 @@ router.get("/", async (req, res) => {
 
 
 router.get("/:email", async (req, res) => {
+    
     try{
-        const usuarioEncontrado = await busacarPorEmail(req.params.id)   
+        const usuarioEncontrado = await buscarPorEmail(req.params)   
     if(usuarioEncontrado){
         res.json(usuarioEncontrado)
     }
@@ -35,6 +36,7 @@ router.get("/:email", async (req, res) => {
 
 
 router.post("/", async (req,res)=>{
+    try{
         await crearUsuario(
             req.body.nombre.trim(),
             req.body.email.trim(),
@@ -42,11 +44,16 @@ router.post("/", async (req,res)=>{
         )
     
         res.json({msg: 'Usuario creado correctamente'})
+    }catch(error){
+        res.status(500).json({ msg: 'Contraseña con menos de 8 carácteres' })
+    }
+        
     
 })
 
 router.delete(":/email", async (req,res)=>{
-    const usuarioBorrado = await eliminarUsuario(req.params.email)
+    
+    const usuarioBorrado = await eliminarUsuario(req.params)
     if(usuarioBorrado){
         res.json({msg:'Usuario Borrado'})
     }else{

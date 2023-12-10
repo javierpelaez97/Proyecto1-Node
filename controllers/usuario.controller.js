@@ -5,7 +5,7 @@ async function buscarTodos(){
     return usuarios
 }
 
-async function busacarPorEmail(email){
+async function buscarPorEmail(email){
     const usuarioEncontrado = Usuarios.findOne(email)
     return usuarioEncontrado
 }
@@ -26,7 +26,7 @@ async function eliminarUsuario(email){
 
 module.exports = {
     buscarTodos,
-    busacarPorEmail,
+    buscarPorEmail,
     crearUsuario,
     eliminarUsuario
 }
